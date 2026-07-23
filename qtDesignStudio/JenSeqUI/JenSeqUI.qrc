@@ -1,0 +1,16 @@
+<RCC>
+    <qresource>
+        <file>Assets/Jersey10-Regular.ttf</file>
+        <file>JenSeqUI.qmlproject</file>
+        <file>JenSeqUI/Constants.qml</file>
+        <file>JenSeqUI/EventListModel.qml</file>
+        <file>JenSeqUI/EventListSimulator.qml</file>
+        <file>JenSeqUI/qmldir</file>
+        <file>JenSeqUIContent/App.qml</file>
+        <file>JenSeqUIContent/fonts/Jersey10-Regular.ttf</file>
+        <file>JenSeqUIContent/images/jenseqlogo.png</file>
+        <file>JenSeqUIContent/images/jenseqlogo_pink.png</file>
+        <file>JenSeqUIContent/Screen01.ui.qml</file>
+        <file>qtquickcontrols2.conf</file>
+    </qresource>
+</RCC>

@@ -2,13 +2,15 @@
 #include "./ui_mainwindow.h"
 #include <QMessageBox>
 #include <QFileDialog>
-
+#include <cstdlib>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    QString env;
+    env = getenv("NCBI_API_KEY");
 }
 
 MainWindow::~MainWindow()
@@ -18,7 +20,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    QMessageBox::about(this,"Title here","This is the message");
+    QMessageBox::about(this,"Title here", "kms");
 }
 
 
@@ -46,7 +48,6 @@ void MainWindow::on_pushButton_2_clicked()
              line = stream.readLine()) {
             ui->Output->insertPlainText(line + "\n");
         };
-
 
 }
 

@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.20)
 
 project(JenSeq VERSION 0.1 LANGUAGES CXX)
 
+FILE(GLOB QML_SRC "*.qml")
+
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -79,6 +81,15 @@ CPMAddPackage("gh:seqan/seqan3@3.4.2#3.4.2")
 
 # Set up everything needed to use SeqAn3 with my_app:
 target_link_libraries (JenSeq PUBLIC seqan3::seqan3)
+
+file(STRINGS ${CMAKE_HOME_DIRECTORY}/.env ENV_FILE)
+foreach(VAR ${ENV_FILE})
+    string(REGEX MATCH "^[^=]*" KEY ${VAR})
+    string(REGEX REPLACE "^[^=]*=" "" VALUE ${VAR})
+    set(ENV{${KEY}} ${VALUE})
+endforeach()
+
+ADD_CUSTOM_TARGET(JenSeqUI SOURCES ${QML_SRC})
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(JenSeq)
