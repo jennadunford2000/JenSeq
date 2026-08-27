@@ -14,6 +14,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
+
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
@@ -25,6 +26,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(JenSeq
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        mainwindow2.ui
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET JenSeq APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -78,6 +80,9 @@ include(${CMAKE_CURRENT_BINARY_DIR}/cmake/CPM.cmake)
 
 # add dependencies here
 CPMAddPackage("gh:seqan/seqan3@3.4.2#3.4.2")
+
+INCLUDE_DIRECTORIES("eigen-5.0.0/eigen-5.0.0/")
+
 
 # Set up everything needed to use SeqAn3 with my_app:
 target_link_libraries (JenSeq PUBLIC seqan3::seqan3)

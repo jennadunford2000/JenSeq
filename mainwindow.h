@@ -18,11 +18,21 @@ public:
     ~MainWindow() override;
 
 private slots:
+    void on_temppushButton_clicked();
+
+    void on_temppushButton_2_clicked();
+
+    void on_temppushButton_3_clicked();
+
+    void disableTempUI();
+
+    void on_AlignmentBut_clicked();
+
     void on_pushButton_clicked();
 
-    void on_pushButton_2_clicked();
+    void testAlign();
 
-    void on_pushButton_3_clicked();
+    void on_pushButton_2_clicked();
 
 private:
     Ui::MainWindow *ui;

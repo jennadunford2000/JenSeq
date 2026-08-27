@@ -3,7 +3,8 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <cstdlib>
-
+#include <QRegularExpression>
+#include <Eigen/Dense>
 
 QList<QString> outputList;
 int GValue = 0;
@@ -13,6 +14,7 @@ int AValue = 0;
 int total;
 int notBaseValue = 0;
 
+using namespace std;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -25,17 +27,17 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_temppushButton_clicked()
 {
     QMessageBox::about(this,"Title here", "kms");
 }
 
 
-void MainWindow::on_pushButton_2_clicked()
+void MainWindow::on_temppushButton_2_clicked()
 {
     QStringList fileNames;
     QString strng;
-    ui->Output->clear();
+    ui->tempOutput->clear();
 
     QFileDialog dialog(this);
     dialog.setNameFilter(tr("Text files (*.txt)"));
@@ -56,7 +58,7 @@ void MainWindow::on_pushButton_2_clicked()
              line = stream.readLine()) {
             if(i>0)
             {
-                ui->Output->insertPlainText(line + "\n");
+                ui->tempOutput->insertPlainText(line + "\n");
                 outputList.append(line);
             }
             i++;
@@ -65,7 +67,7 @@ void MainWindow::on_pushButton_2_clicked()
 }
 
 
-void MainWindow::on_pushButton_3_clicked()
+void MainWindow::on_temppushButton_3_clicked()
 {
     if(outputList.empty())
     {
@@ -107,26 +109,152 @@ void MainWindow::on_pushButton_3_clicked()
 
             }
         }
-        ui->ALabel->setText(QString::number(AValue));
-        ui->GLabel->setText(QString::number(GValue));
-        ui->TLabel->setText(QString::number(TValue));
-        ui->CLabel->setText(QString::number(CValue));
-        ui->InvalidLabel->setText(QString::number(notBaseValue));
+        ui->tempALabel->setText(QString::number(AValue));
+        ui->tempGLabel->setText(QString::number(GValue));
+        ui->tempTLabel->setText(QString::number(TValue));
+        ui->tempCLabel->setText(QString::number(CValue));
+        ui->tempInvalidLabel->setText(QString::number(notBaseValue));
 
         total = AValue + GValue + TValue + CValue;
-        ui->totalLabel->setText(QString::number(total));
+        ui->temptotalLabel->setText(QString::number(total));
         if(total != 0)
         {
             double GPercent = ((double)GValue/(double)total) * 100.00;
-            ui->GPercent->setText("G Percentage: " + QString::number(GPercent) + "%");
+            ui->tempGPercent->setText("G Percentage: " + QString::number(GPercent) + "%");
             double CPercent = ((double)CValue / (double)total) * 100.00;
-            ui->CPercent->setText("C Percentage: " + QString::number(CPercent) + "%");
+            ui->tempCPercent->setText("C Percentage: " + QString::number(CPercent) + "%");
             double APercent = ((double)AValue / (double)total) * 100.00;
-            ui->APercent->setText("A Percentage: " + QString::number(APercent) + "%");
+            ui->tempAPercent->setText("A Percentage: " + QString::number(APercent) + "%");
             double TPercent = ((double)TValue / (double)total) * 100.00;
-            ui->TPercent->setText("T Percentage: " + QString::number(TPercent) + "%");
+            ui->tempTPercent->setText("T Percentage: " + QString::number(TPercent) + "%");
         }
 
     }
+}
+void MainWindow::disableTempUI()
+{
+    QList<QLabel*> LabelList = this->findChildren<QLabel*>(QRegularExpression("temp.*"));
+    QList<QPushButton*> ButtonList = this->findChildren<QPushButton*>(QRegularExpression("temp.*"));
+    QList<QTextEdit*> TextList = this->findChildren<QTextEdit*>(QRegularExpression("temp.*"));
+
+    foreach (QLabel *item, LabelList) {
+        item->setVisible(false);
+    }
+
+    foreach (QPushButton *item, ButtonList) {
+        item->setVisible(false);
+    }
+
+
+    foreach (QTextEdit *item, TextList) {
+        item->setVisible(false);
+    }
+
+}
+
+void MainWindow::on_AlignmentBut_clicked()
+{
+    disableTempUI();
+}
+
+void MainWindow::testAlign()
+{
+    //we need our two sequences
+    QString seq1[] = {"T","T","G","A","C","G","T"};
+    QString seq2[] = {"T","G","A","C","G"};
+
+    char sSeq1[] = {'T','T','G','A','C','G','T'};
+    char sSeq2[] = {'T','G','A','C','G'};
+
+
+    //declaring the matrix
+    Eigen::MatrixXd AlignMatrix(sizeof(seq1)+1,sizeof(seq2)+1);
+
+
+    //scoring values
+    int mismatch = -1;
+    int match = 1;
+    int indel = -2;
+
+    //Initalize the matrix
+    //traverse the matrix
+    //left to right
+    //from 1;1
+    //at each point
+    //check up sum
+    //check left sum
+    //check diagonal sum
+    //find highest sum answer/s
+    //store direction taken in new array
+    //store sum value in matrix
+    //once finished -> traceback
+    //from bottom right follow "direction arrows" backwards
+    //if move left, then gap, if move diagonal, then match - store possible alignment
+    //if multiple possible directions, do it again - store possible alignment
+    ui->matrix->clearContents();
+    ui->matrix->clear();
+
+
+    ui->matrix->setRowCount(sizeof(sSeq2)+1);
+    ui->matrix->setColumnCount(sizeof(sSeq1)+1);
+
+    ui->matrix->setHorizontalHeaderItem(0,new QTableWidgetItem(" "));
+    ui->matrix->setVerticalHeaderItem(0,new QTableWidgetItem(" "));
+
+
+    for (int var = 1; var <= sizeof(sSeq1); var++) {
+
+        ui->matrix->setHorizontalHeaderItem(var,new QTableWidgetItem(seq1[var-1]));
+
+    }
+
+    for (int var = 1; var <= sizeof(sSeq2); var++) {
+
+        ui->matrix->setVerticalHeaderItem(var,new QTableWidgetItem(seq2[var-1]));
+
+    }
+
+
+    for(int i = 0; i< sizeof(sSeq1)+1; i++)
+    {
+        if(i==0)
+        {
+            ui->matrix->setItem(0,i,new QTableWidgetItem(QString::number(i)));
+        }
+        else
+        {
+            ui->matrix->setItem(0,i, new QTableWidgetItem(QString::number(i * -2)));
+        }
+
+    }
+
+    for(int j = 0; j< sizeof(sSeq2)+1; j++)
+    {
+        if(j!=0)
+        {
+            ui->matrix->setItem(j,0, new QTableWidgetItem(QString::number(j * -2)));
+        }
+
+    }
+
+
+    //CALCULATION PART
+    //check top (up value + indel)
+    //check left (left value + indel)
+    //check diagonal (diagonal value (if col/row match then value + match) (if col/row mismatch then value +mismatch)
+
+
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    ui->windows->setCurrentIndex(ui->windows->currentIndex()+1);
+}
+
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    testAlign();
 }
 
