@@ -17,10 +17,10 @@
    <widget class="QStackedWidget" name="windows">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>60</y>
-      <width>901</width>
-      <height>561</height>
+      <x>0</x>
+      <y>0</y>
+      <width>1021</width>
+      <height>641</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -331,18 +331,30 @@
      <widget class="QTableWidget" name="matrix">
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>180</y>
-        <width>571</width>
-        <height>341</height>
+        <x>20</x>
+        <y>50</y>
+        <width>1021</width>
+        <height>601</height>
        </rect>
       </property>
+      <attribute name="horizontalHeaderMinimumSectionSize">
+       <number>30</number>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>30</number>
+      </attribute>
+      <attribute name="verticalHeaderMinimumSectionSize">
+       <number>30</number>
+      </attribute>
+      <attribute name="verticalHeaderDefaultSectionSize">
+       <number>30</number>
+      </attribute>
      </widget>
      <widget class="QPushButton" name="pushButton_2">
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>140</y>
+        <x>120</x>
+        <y>20</y>
         <width>93</width>
         <height>29</height>
        </rect>
