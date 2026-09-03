@@ -169,6 +169,7 @@ void MainWindow::testAlign()
 
     //declaring the matrix
     Eigen::MatrixXd AlignMatrix(sizeof(seq1)+1,sizeof(seq2)+1);
+    Eigen::MatrixXd DirectionMatrix(sizeof(seq1)+1,sizeof(seq2)+1);
 
 
     //scoring values
@@ -220,10 +221,12 @@ void MainWindow::testAlign()
         if(i==0)
         {
             ui->matrix->setItem(0,i,new QTableWidgetItem(QString::number(i)));
+            AlignMatrix(0,i) = 0;
         }
         else
         {
             ui->matrix->setItem(0,i, new QTableWidgetItem(QString::number(i * -2)));
+            AlignMatrix(0,i) = i * -2;
         }
 
     }
@@ -233,6 +236,7 @@ void MainWindow::testAlign()
         if(j!=0)
         {
             ui->matrix->setItem(j,0, new QTableWidgetItem(QString::number(j * -2)));
+            AlignMatrix(j,0) = j * -2;
         }
 
     }
@@ -257,18 +261,37 @@ void MainWindow::testAlign()
     //2 for left
     //3 for diag
 
-    for (int r = 1; r < sizeof(sSeq2); ++r) {
-        for (int c = 1; c < sizeof(sSeq1); ++c) {
+    for (int r = 1; r <= sizeof(sSeq2); ++r) {
+        for (int c = 1; c <= sizeof(sSeq1); ++c) {
             int topsum;
             int diagsum;
             int leftsum;
-            int direction;
+            int highsum;
 
+            topsum = AlignMatrix(r-1,c) + indel;
+            if(sSeq1[c-1] == sSeq2[r-1])
+            {
+                diagsum = AlignMatrix(r-1,c-1) + match;
+                ui->textEdit->insertPlainText(seq1[c-1] + " and " +  seq2[r-1] + " match" + "\n");
+            }else{
+                diagsum = AlignMatrix(r-1,c-1) + mismatch;
+                ui->textEdit->insertPlainText(seq1[c-1] + " and " +  seq2[r-1] + " do not match" + "\n");
 
-
+            }
+            leftsum = AlignMatrix(r,c-1) + indel;
+            highsum = max ({topsum, diagsum, leftsum});
+            AlignMatrix(r,c) = highsum;
+            ui->matrix->setItem(r,c,new QTableWidgetItem(QString::number(highsum)));
         }
 
     }
+
+
+
+    QTableWidgetItem* item = ui->matrix->item(0,4);
+    QColor color(QColor("red"));
+    item->setBackground(color);
+
 
 }
 
