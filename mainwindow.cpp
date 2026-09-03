@@ -243,6 +243,32 @@ void MainWindow::testAlign()
     //check left (left value + indel)
     //check diagonal (diagonal value (if col/row match then value + match) (if col/row mismatch then value +mismatch)
 
+    //(1;1)
+    //xxxxxxx
+    //x
+    //x
+    //x
+    //x
+    int up = 1;
+    int left = 2;
+    int diag = 3;
+    //need to store the direction value
+    //1 for up
+    //2 for left
+    //3 for diag
+
+    for (int r = 1; r < sizeof(sSeq2); ++r) {
+        for (int c = 1; c < sizeof(sSeq1); ++c) {
+            int topsum;
+            int diagsum;
+            int leftsum;
+            int direction;
+
+
+
+        }
+
+    }
 
 }
 
