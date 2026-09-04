@@ -19,7 +19,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1021</width>
+      <width>1041</width>
       <height>641</height>
      </rect>
     </property>
@@ -333,8 +333,8 @@
        <rect>
         <x>20</x>
         <y>50</y>
-        <width>691</width>
-        <height>601</height>
+        <width>771</width>
+        <height>591</height>
        </rect>
       </property>
       <attribute name="horizontalHeaderMinimumSectionSize">
@@ -366,8 +366,8 @@
      <widget class="QTextEdit" name="textEdit">
       <property name="geometry">
        <rect>
-        <x>780</x>
-        <y>210</y>
+        <x>810</x>
+        <y>120</y>
         <width>221</width>
         <height>331</height>
        </rect>

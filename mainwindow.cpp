@@ -6,6 +6,7 @@
 #include <QRegularExpression>
 #include <Eigen/Dense>
 
+
 QList<QString> outputList;
 int GValue = 0;
 int TValue = 0;
@@ -159,12 +160,27 @@ void MainWindow::on_AlignmentBut_clicked()
 
 void MainWindow::testAlign()
 {
-    //we need our two sequences
-    QString seq1[] = {"T","T","G","A","C","G","T"};
-    QString seq2[] = {"T","G","A","C","G"};
+    ui->textEdit->insertPlainText("we out here 0 \n");
 
-    char sSeq1[] = {'T','T','G','A','C','G','T'};
-    char sSeq2[] = {'T','G','A','C','G'};
+    //we need our two sequences
+    //QString seq1[] = {"T","T","G","A","C","G","T"};
+    //QString seq2[] = {"T","G","A","C","G"};
+
+   // char sSeq1[] = {};
+   // char sSeq2[] = {};
+    QString sSeq1 = "GCGCAAGCTGCGTAAGCGGCTCCTCCGCGATGCCGATGACCTGCAGAAGCGCCTGGCAGTGTACCAGGCCGGGGCCCGCGAGGGCGCCGAGCGCGGCCTCAGCG";
+    QString sSeq2 = "GCGCAAGCTGCGTAAGCGGCTCCTCCGCGATGCCGATGACCTGCAGAAGTGCCTGGCAGTGTACCAGGCCGGGGCCCGCGAGGGCGCCGAGCGCGGCCTCAGCG";
+    //char sSeq1[] = {'T','T','G','A','C','G','T'};
+    //char sSeq2[] = {'T','G','A','C','G'};
+    char seq1[] = {'G','C','G','C','A','A','G','C','T','G','C','G','T','A','A','G','C','G','G','C','T','C','C','T','C','C','G','C','G','A','T','G','C','C','G','A','T','G','A','C','C','T','G','C','A','G','A','A','G','C','G','C','C','T','G','G','C','A','G','T','G','T','A','C','C','A','G','G','C','C','G','G','G','G','C','C','C','G','C','G','A','G','G','G','C','G','C','C','G','A','G','C','G','C','G','G','C','C','T','C','A','G','C','G'};
+    char seq2[] = {'G','C','G','C','A','A','G','C','T','G','C','G','T','A','A','G','C','G','G','C','T','C','C','T','C','C','G','C','G','A','T','G','C','C','G','A','T','G','A','C','C','T','G','C','A','G','A','A','G','T','G','C','C','T','G','G','C','A','G','T','G','T','A','C','C','A','G','G','C','C','G','G','G','G','C','C','C','G','C','G','A','G','G','G','C','G','C','C','G','A','G','C','G','C','G','G','C','C','T','C','A','G','C','G'};
+
+
+    ui->textEdit->insertPlainText("we out here 1 \n");
+
+
+    ui->textEdit->insertPlainText("we out here 2 \n");
+
 
 
     //declaring the matrix
@@ -205,13 +221,13 @@ void MainWindow::testAlign()
 
     for (int var = 1; var <= sizeof(sSeq1); var++) {
 
-        ui->matrix->setHorizontalHeaderItem(var,new QTableWidgetItem(seq1[var-1]));
+        ui->matrix->setHorizontalHeaderItem(var,new QTableWidgetItem(QString(seq1[var-1])));
 
     }
 
     for (int var = 1; var <= sizeof(sSeq2); var++) {
 
-        ui->matrix->setVerticalHeaderItem(var,new QTableWidgetItem(seq2[var-1]));
+        ui->matrix->setVerticalHeaderItem(var,new QTableWidgetItem(QString(seq2[var-1])));
 
     }
 
@@ -272,10 +288,10 @@ void MainWindow::testAlign()
             if(sSeq1[c-1] == sSeq2[r-1])
             {
                 diagsum = AlignMatrix(r-1,c-1) + match;
-                ui->textEdit->insertPlainText(seq1[c-1] + " and " +  seq2[r-1] + " match" + "\n");
+                ui->textEdit->insertPlainText(QString(seq1[c-1]) + " and " +  QString(seq2[r-1]) + " match \n");
             }else{
                 diagsum = AlignMatrix(r-1,c-1) + mismatch;
-                ui->textEdit->insertPlainText(seq1[c-1] + " and " +  seq2[r-1] + " do not match" + "\n");
+                ui->textEdit->insertPlainText(QString(seq1[c-1]) + " and " +  QString(seq2[r-1]) + " do not match \n");
 
             }
             leftsum = AlignMatrix(r,c-1) + indel;

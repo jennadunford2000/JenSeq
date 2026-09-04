@@ -4,6 +4,7 @@ project(JenSeq VERSION 0.1 LANGUAGES CXX)
 
 FILE(GLOB QML_SRC "*.qml")
 
+
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -82,6 +83,9 @@ include(${CMAKE_CURRENT_BINARY_DIR}/cmake/CPM.cmake)
 CPMAddPackage("gh:seqan/seqan3@3.4.2#3.4.2")
 
 INCLUDE_DIRECTORIES("eigen-5.0.0/eigen-5.0.0/")
+INCLUDE_DIRECTORIES("GeneSelect/APOE_C.txt")
+INCLUDE_DIRECTORIES("GeneSelect/APOE_T.txt")
+
 
 
 # Set up everything needed to use SeqAn3 with my_app:
