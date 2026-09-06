@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1073</width>
-    <height>714</height>
+    <width>1500</width>
+    <height>1073</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Calibri</family>
+    <pointsize>7</pointsize>
+   </font>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -17,11 +23,23 @@
    <widget class="QStackedWidget" name="windows">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>-10</x>
       <y>0</y>
-      <width>1041</width>
-      <height>641</height>
+      <width>1481</width>
+      <height>1011</height>
      </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Calibri</family>
+      <pointsize>8</pointsize>
+     </font>
     </property>
     <property name="currentIndex">
      <number>1</number>
@@ -332,45 +350,111 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>50</y>
-        <width>771</width>
-        <height>591</height>
+        <y>0</y>
+        <width>1311</width>
+        <height>671</height>
        </rect>
       </property>
+      <property name="maximumSize">
+       <size>
+        <width>2000000</width>
+        <height>2000000</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Calibri</family>
+        <pointsize>3</pointsize>
+       </font>
+      </property>
       <attribute name="horizontalHeaderMinimumSectionSize">
-       <number>30</number>
+       <number>18</number>
       </attribute>
       <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>30</number>
+       <number>18</number>
       </attribute>
       <attribute name="verticalHeaderMinimumSectionSize">
-       <number>30</number>
+       <number>9</number>
       </attribute>
       <attribute name="verticalHeaderDefaultSectionSize">
-       <number>30</number>
+       <number>9</number>
       </attribute>
      </widget>
      <widget class="QPushButton" name="pushButton_2">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>20</y>
+        <x>1340</x>
+        <y>30</y>
         <width>93</width>
         <height>29</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Calibri</family>
+        <pointsize>12</pointsize>
+       </font>
       </property>
       <property name="text">
        <string>Start</string>
       </property>
      </widget>
+     <widget class="QLabel" name="alignedOne">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>700</y>
+        <width>891</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Calibri</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="sequence">
+      <property name="geometry">
+       <rect>
+        <x>1340</x>
+        <y>170</y>
+        <width>131</width>
+        <height>81</height>
+       </rect>
+      </property>
+     </widget>
      <widget class="QTextEdit" name="textEdit">
       <property name="geometry">
        <rect>
-        <x>810</x>
-        <y>120</y>
-        <width>221</width>
-        <height>331</height>
+        <x>1340</x>
+        <y>70</y>
+        <width>131</width>
+        <height>81</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="compseq">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>670</y>
+        <width>891</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Calibri</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
       </property>
      </widget>
     </widget>
@@ -381,8 +465,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1073</width>
-     <height>26</height>
+     <width>1500</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuJenSeqProto">

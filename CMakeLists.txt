@@ -21,6 +21,10 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        GA_me.txt
+        GA_other.txt
+        ex1.txt
+        ex2.txt
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

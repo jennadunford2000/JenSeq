@@ -2,9 +2,15 @@
 #include "./ui_mainwindow.h"
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QThread>
+#include <QTimer>
 #include <cstdlib>
 #include <QRegularExpression>
 #include <Eigen/Dense>
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <unistd.h>
 
 
 QList<QString> outputList;
@@ -132,6 +138,29 @@ void MainWindow::on_temppushButton_3_clicked()
 
     }
 }
+
+string readfile(string filename){
+    // Open the text file for reading
+    std::ifstream f(filename);
+
+    // Check if the file was opened successfully
+    if (!f.is_open()) {
+        std::cerr << "Error opening the file!";
+        return "";
+    }
+
+    std::string s;
+
+    while (std::getline(f, s))
+        std::cout << s << std::endl;
+
+    // Read each line from the file
+
+    // Close the file
+    f.close();
+
+    return s;
+}
 void MainWindow::disableTempUI()
 {
     QList<QLabel*> LabelList = this->findChildren<QLabel*>(QRegularExpression("temp.*"));
@@ -160,32 +189,53 @@ void MainWindow::on_AlignmentBut_clicked()
 
 void MainWindow::testAlign()
 {
-    ui->textEdit->insertPlainText("we out here 0 \n");
 
+    int timedelay = 3;
+    int timedelaytrace =20;
+    ui->textEdit->insertPlainText("we out here 0 \n");
     //we need our two sequences
     //QString seq1[] = {"T","T","G","A","C","G","T"};
     //QString seq2[] = {"T","G","A","C","G"};
 
    // char sSeq1[] = {};
    // char sSeq2[] = {};
-    QString sSeq1 = "GCGCAAGCTGCGTAAGCGGCTCCTCCGCGATGCCGATGACCTGCAGAAGCGCCTGGCAGTGTACCAGGCCGGGGCCCGCGAGGGCGCCGAGCGCGGCCTCAGCG";
-    QString sSeq2 = "GCGCAAGCTGCGTAAGCGGCTCCTCCGCGATGCCGATGACCTGCAGAAGTGCCTGGCAGTGTACCAGGCCGGGGCCCGCGAGGGCGCCGAGCGCGGCCTCAGCG";
-    //char sSeq1[] = {'T','T','G','A','C','G','T'};
-    //char sSeq2[] = {'T','G','A','C','G'};
-    char seq1[] = {'G','C','G','C','A','A','G','C','T','G','C','G','T','A','A','G','C','G','G','C','T','C','C','T','C','C','G','C','G','A','T','G','C','C','G','A','T','G','A','C','C','T','G','C','A','G','A','A','G','C','G','C','C','T','G','G','C','A','G','T','G','T','A','C','C','A','G','G','C','C','G','G','G','G','C','C','C','G','C','G','A','G','G','G','C','G','C','C','G','A','G','C','G','C','G','G','C','C','T','C','A','G','C','G'};
-    char seq2[] = {'G','C','G','C','A','A','G','C','T','G','C','G','T','A','A','G','C','G','G','C','T','C','C','T','C','C','G','C','G','A','T','G','C','C','G','A','T','G','A','C','C','T','G','C','A','G','A','A','G','T','G','C','C','T','G','G','C','A','G','T','G','T','A','C','C','A','G','G','C','C','G','G','G','G','C','C','C','G','C','G','A','G','G','G','C','G','C','C','G','A','G','C','G','C','G','G','C','C','T','C','A','G','C','G'};
+    //QString sSeq1 = "CCGCAAGCTGCGTAAGCGGCTCCTCCGCGATGCCGATGACCTGCAGAAGCGCCTGGCAGTGTACCAGGCCGGGGCCCGCGAGGGCGCCGAGCGCGGCCTCAGCG";
+   // QString sSeq2 = "GCGCAAGCTGCGTAAGCGGCTCCTCCGCGATGCCGATGACCTGCAGAAGTGCCTGGCAGTGTACCAGGCCGGGGCCCGCGAGGGCGCCGAGCGCGGCCTCAGCG";
+
+    QString sSeq1 = QString::fromStdString(readfile("D:/Escape2026/JenSeq/GPX_me.txt"));
+    QString sSeq2 = QString::fromStdString(readfile("D:/Escape2026/JenSeq/GPX_other.txt"));
+
+    QString theAlignedOne = "";
+
+    //QString sSeq1 = QString::fromStdString(readfile("D:/Escape2026/JenSeq/ex1.txt"));
+   // QString sSeq2 = QString::fromStdString(readfile("D:/Escape2026/JenSeq/ex2.txt"));
+  //  char sSeq1[] = {'T','T','G','A','C','G','T'};
+  //  char sSeq2[] = {'T','G','A','C','G'};
+
+    //char seq1[] = {'C','C','G','C','A','A','G','C','T','G','C','G','T','A','A','G','C','G','G','C','T','C','C','T','C','C','G','C','G','A','T','G','C','C','G','A','T','G','A','C','C','T','G','C','A','G','A','A','G','C','G','C','C','T','G','G','C','A','G','T','G','T','A','C','C','A','G','G','C','C','G','G','G','G','C','C','C','G','C','G','A','G','G','G','C','G','C','C','G','A','G','C','G','C','G','G','C','C','T','C','A','G','C','G'};
+    //char seq2[] = {'G','C','G','C','A','A','G','C','T','G','C','G','T','A','A','G','C','G','G','C','T','C','C','T','C','C','G','C','G','A','T','G','C','C','G','A','T','G','A','C','C','T','G','C','A','G','A','A','G','T','G','C','C','T','G','G','C','A','G','T','G','T','A','C','C','A','G','G','C','C','G','G','G','G','C','C','C','G','C','G','A','G','G','G','C','G','C','C','G','A','G','C','G','C','G','G','C','C','T','C','A','G','C','G'};
+
+    char seq1[sSeq1.size()+1];
+    strcpy(seq1, (sSeq1.toStdString()).c_str());
+
+    char seq2[sSeq2.size()+1];
+    strcpy(seq2, (sSeq2.toStdString()).c_str());
 
 
     ui->textEdit->insertPlainText("we out here 1 \n");
 
 
-    ui->textEdit->insertPlainText("we out here 2 \n");
+    ui->textEdit->insertPlainText("seq1 size: " + QString::number(sizeof(seq1)) + "\n");
+    ui->textEdit->insertPlainText("seq2 size: " + QString::number(sizeof(seq2)) + "\n");
+
+
+    ui->textEdit->insertPlainText("we out here 0 \n");
 
 
 
     //declaring the matrix
-    Eigen::MatrixXd AlignMatrix(sizeof(seq1)+1,sizeof(seq2)+1);
-    Eigen::MatrixXd DirectionMatrix(sizeof(seq1)+1,sizeof(seq2)+1);
+    Eigen::MatrixXd AlignMatrix(sizeof(seq1)+5,sizeof(seq2)+5);
+    Eigen::MatrixXd DirectionMatrix(sizeof(seq1)+5,sizeof(seq2)+5);
 
 
     //scoring values
@@ -212,42 +262,98 @@ void MainWindow::testAlign()
     ui->matrix->clear();
 
 
-    ui->matrix->setRowCount(sizeof(sSeq2)+1);
-    ui->matrix->setColumnCount(sizeof(sSeq1)+1);
+    //ui->matrix->setRowCount(sizeof(sSeq2)+1);
+    //ui->matrix->setColumnCount(sizeof(sSeq1)+1);
+
+
+    ui->matrix->setColumnCount(sizeof(seq1));
+    ui->matrix->setRowCount(sizeof(seq2));
 
     ui->matrix->setHorizontalHeaderItem(0,new QTableWidgetItem(" "));
     ui->matrix->setVerticalHeaderItem(0,new QTableWidgetItem(" "));
 
 
-    for (int var = 1; var <= sizeof(sSeq1); var++) {
+    for (int var = 1; var <= sizeof(seq1); var++) {
 
         ui->matrix->setHorizontalHeaderItem(var,new QTableWidgetItem(QString(seq1[var-1])));
 
+        QString base = QString(seq1[var-1]);
+        QTableWidgetItem* item =ui->matrix->horizontalHeaderItem(var);
+
+        if(base == "G")
+        {
+            QColor color(QColor("yellow"));
+            item->setBackground(color);
+
+        }
+        else if(base == "T")
+        {
+            QColor color(QColor("cyan"));
+            item->setBackground(color);
+        }
+        else if(base == "A")
+        {
+            QColor color(QColor("magenta"));
+            item->setBackground(color);
+        }
+        else if(base == "C")
+        {
+            QColor color(QColor("blue"));
+            item->setBackground(color);
+        }
     }
 
-    for (int var = 1; var <= sizeof(sSeq2); var++) {
+
+    for (int var = 1; var <= sizeof(seq2); var++) {
 
         ui->matrix->setVerticalHeaderItem(var,new QTableWidgetItem(QString(seq2[var-1])));
 
+        QString base = QString(seq2[var-1]);
+        QTableWidgetItem* item =ui->matrix->verticalHeaderItem(var);
+
+        if(base == "G")
+        {
+            QColor color(QColor("yellow"));
+            item->setBackground(color);
+
+        }
+        else if(base == "T")
+        {
+            QColor color(QColor("cyan"));
+            item->setBackground(color);
+        }
+        else if(base == "A")
+        {
+            QColor color(QColor("magenta"));
+            item->setBackground(color);
+        }
+        else if(base == "C")
+        {
+            QColor color(QColor("blue"));
+            item->setBackground(color);
+        }
+
     }
 
 
-    for(int i = 0; i< sizeof(sSeq1)+1; i++)
+    for(int i = 0; i<= sizeof(seq1); i++)
     {
         if(i==0)
         {
+            std::cout << "here" << std::endl;
             ui->matrix->setItem(0,i,new QTableWidgetItem(QString::number(i)));
             AlignMatrix(0,i) = 0;
         }
         else
         {
-            ui->matrix->setItem(0,i, new QTableWidgetItem(QString::number(i * -2)));
-            AlignMatrix(0,i) = i * -2;
+                ui->matrix->setItem(0,i, new QTableWidgetItem(QString::number(i * -2)));
+                AlignMatrix(0,i) = i * -2;
+
         }
 
     }
 
-    for(int j = 0; j< sizeof(sSeq2)+1; j++)
+    for(int j = 0; j<= sizeof(seq2); j++)
     {
         if(j!=0)
         {
@@ -269,20 +375,21 @@ void MainWindow::testAlign()
     //x
     //x
     //x
-    int up = 1;
-    int left = 2;
-    int diag = 3;
+    const int up = 1;
+    const int left = 2;
+    const int diag = 3;
     //need to store the direction value
     //1 for up
     //2 for left
     //3 for diag
 
-    for (int r = 1; r <= sizeof(sSeq2); ++r) {
-        for (int c = 1; c <= sizeof(sSeq1); ++c) {
+    for (int r = 1; r < sizeof(seq2); ++r) {
+        for (int c = 1; c < sizeof(seq1); ++c) {
             int topsum;
             int diagsum;
             int leftsum;
             int highsum;
+            int direction; //1 - top, 2 - left, 3 - diagonal
 
             topsum = AlignMatrix(r-1,c) + indel;
             if(sSeq1[c-1] == sSeq2[r-1])
@@ -296,18 +403,110 @@ void MainWindow::testAlign()
             }
             leftsum = AlignMatrix(r,c-1) + indel;
             highsum = max ({topsum, diagsum, leftsum});
+            if(highsum == topsum)
+            {
+                direction = up;
+            }
+            else if(highsum == leftsum)
+            {
+                direction = left;
+            }
+            else if(highsum == diagsum)
+            {
+                direction = diag;
+            }
             AlignMatrix(r,c) = highsum;
+            DirectionMatrix(r,c) = direction;
             ui->matrix->setItem(r,c,new QTableWidgetItem(QString::number(highsum)));
+            QTimer timer;
+            timer.setInterval(timedelay);
+            QEventLoop loop;
+            connect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
+            timer.start();
+            loop.exec();
         }
+        QTimer timer;
+        timer.setInterval(timedelay);
+        QEventLoop loop;
+        connect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
+        timer.start();
+        loop.exec();
+
 
     }
 
+    ui->textEdit->insertPlainText("Beginning traceback \n");
+
+   // if(DirectionMatrix(sizeof(seq2),sizeof(seq1)) == 3)
+  //  {
+  //      theAlignedOne.append(sSeq1[sizeof(seq1)]);
+   // }
+  //  else{
+  //      theAlignedOne.append("-");
+  //  }
 
 
-    QTableWidgetItem* item = ui->matrix->item(0,4);
+    QTableWidgetItem* item = ui->matrix->item(sizeof(seq2)-1,sizeof(seq1)-1);
+    ui->alignedOne->clear();
+    ui->alignedOne->setText(theAlignedOne);
     QColor color(QColor("red"));
     item->setBackground(color);
+    for (int r = sizeof(seq2)-1; r >= 1;){
+        for(int c = sizeof(seq1)-1; c >= 1;)
+        {
+            int directionCheck = DirectionMatrix(r,c);
+            ui->sequence->insertPlainText("we are on " + QString(QChar::fromLatin1((seq1[c-1]))) + "\n");
+            ui->sequence->insertPlainText("coordinates are " + QString::number(r) + "," + QString::number(c) + "\n");
+            ui->sequence->insertPlainText("the direction is: " + QString::number(directionCheck) + "\n");
+            switch(directionCheck){
+            case up:
+                theAlignedOne.append("-");
+                ui->alignedOne->clear();
+                ui->alignedOne->setText(theAlignedOne);
+                r = r-1;
+                ui->textEdit->insertPlainText("direction was up \n");
+                break;
+            case left:
+                theAlignedOne.append("-");
+                ui->alignedOne->clear();
+                ui->alignedOne->setText(theAlignedOne);
+                c = c-1;
+                ui->textEdit->insertPlainText("direction was left \n");
+                break;
+            case diag:
+                theAlignedOne.append(seq1[c-1]);
+                ui->alignedOne->clear();
+                ui->alignedOne->setText(theAlignedOne);
+                c = c-1;
+                r = r-1;
+                ui->textEdit->insertPlainText("direction was diagonal \n");
+                break;
+            default:
+                break;
+            }
 
+            QTimer timer;
+            timer.setInterval(timedelaytrace);
+            QEventLoop loop;
+            connect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
+            timer.start();
+            loop.exec();
+
+
+            QTableWidgetItem* item = ui->matrix->item(r,c);
+            QColor color(QColor("red"));
+            item->setBackground(color);
+
+
+        }
+    }
+
+    ui->alignedOne->clear();
+    std::reverse(theAlignedOne.begin(), theAlignedOne.end());
+
+    ui->alignedOne->setText(theAlignedOne);
+    ui->compseq->setText(sSeq1);
+    ui->textEdit->insertPlainText(QString::fromStdString(readfile("D:/Escape2026/JenSeq/GA_me.txt")));
 
 }
 
