@@ -506,6 +506,7 @@ void MainWindow::testAlign()
 
     ui->alignedOne->setText(theAlignedOne);
     ui->compseq->setText(sSeq1);
+    ui->compseq_2->setText(sSeq2);
     ui->textEdit->insertPlainText(QString::fromStdString(readfile("D:/Escape2026/JenSeq/GA_me.txt")));
 
 }
