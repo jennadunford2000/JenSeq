@@ -27,6 +27,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->selectExample->addItem("GPX");
+    ui->selectExample->addItem("Small Example");
+    ui->selectExample->setCurrentIndex(0);
 }
 
 MainWindow::~MainWindow()
@@ -139,6 +142,18 @@ void MainWindow::on_temppushButton_3_clicked()
     }
 }
 
+void setTableFeatures(QTableWidget *table, int vertSize, int horiSize, int fontsize)
+{
+    table->horizontalHeader()->setMinimumSectionSize(horiSize);
+    table->horizontalHeader()->setDefaultSectionSize(horiSize);
+
+    table->verticalHeader()->setMinimumSectionSize(vertSize);
+    table->verticalHeader()->setDefaultSectionSize(vertSize);
+    QFont font("Calibri", fontsize, QFont::Bold);
+    table->setFont(font);
+}
+
+
 string readfile(string filename){
     // Open the text file for reading
     std::ifstream f(filename);
@@ -190,6 +205,10 @@ void MainWindow::on_AlignmentBut_clicked()
 void MainWindow::testAlign()
 {
 
+    ui->alignedOne->setText("");
+    ui->compseq->setText("");
+    ui->compseq_2->setText("");
+
     int timedelay = 3;
     int timedelaytrace =20;
     ui->textEdit->insertPlainText("we out here 0 \n");
@@ -202,10 +221,24 @@ void MainWindow::testAlign()
     //QString sSeq1 = "CCGCAAGCTGCGTAAGCGGCTCCTCCGCGATGCCGATGACCTGCAGAAGCGCCTGGCAGTGTACCAGGCCGGGGCCCGCGAGGGCGCCGAGCGCGGCCTCAGCG";
    // QString sSeq2 = "GCGCAAGCTGCGTAAGCGGCTCCTCCGCGATGCCGATGACCTGCAGAAGTGCCTGGCAGTGTACCAGGCCGGGGCCCGCGAGGGCGCCGAGCGCGGCCTCAGCG";
 
-    QString sSeq1 = QString::fromStdString(readfile("D:/Escape2026/JenSeq/GPX_me.txt"));
-    QString sSeq2 = QString::fromStdString(readfile("D:/Escape2026/JenSeq/GPX_other.txt"));
+    QString sSeq1;
+    QString sSeq2;
 
     QString theAlignedOne = "";
+
+    if(ui->selectExample->currentIndex() == 0)
+    {
+        sSeq1 = QString::fromStdString(readfile("D:/Escape2026/JenSeq/GPX_me.txt"));
+        sSeq2 = QString::fromStdString(readfile("D:/Escape2026/JenSeq/GPX_other.txt"));
+        setTableFeatures(ui->matrix, 9, 18, 3);
+    }
+    else
+    {
+        sSeq1 = QString::fromStdString(readfile("D:/Escape2026/JenSeq/ex1.txt"));
+        sSeq2 = QString::fromStdString(readfile("D:/Escape2026/JenSeq/ex2.txt"));
+        setTableFeatures(ui->matrix, 30, 30, 12);
+    }
+
 
     //QString sSeq1 = QString::fromStdString(readfile("D:/Escape2026/JenSeq/ex1.txt"));
    // QString sSeq2 = QString::fromStdString(readfile("D:/Escape2026/JenSeq/ex2.txt"));
@@ -507,7 +540,6 @@ void MainWindow::testAlign()
     ui->alignedOne->setText(theAlignedOne);
     ui->compseq->setText(sSeq1);
     ui->compseq_2->setText(sSeq2);
-    ui->textEdit->insertPlainText(QString::fromStdString(readfile("D:/Escape2026/JenSeq/GA_me.txt")));
 
 }
 
