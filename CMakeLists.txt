@@ -25,6 +25,7 @@ set(PROJECT_SOURCES
         GA_other.txt
         ex1.txt
         ex2.txt
+        double-helix.gif
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

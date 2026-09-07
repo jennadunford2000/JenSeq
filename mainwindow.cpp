@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <unistd.h>
+#include <QMovie>
 
 
 QList<QString> outputList;
@@ -30,6 +31,21 @@ MainWindow::MainWindow(QWidget *parent)
     ui->selectExample->addItem("GPX");
     ui->selectExample->addItem("Small Example");
     ui->selectExample->setCurrentIndex(0);
+
+    ui->alignedOne->clear();
+    ui->compseq->clear();
+    ui->compseq_2->clear();
+
+    QMovie *movie = new QMovie("D:/Escape2026/JenSeq/dna.gif");
+    if (!movie->isValid())
+    {
+        std::cout << "why movie no work waaaah";
+    }
+    QSize size(150,100);
+    movie->setScaledSize(size);
+    ui->DNA->setMovie(movie);
+    movie->start();
+
 }
 
 MainWindow::~MainWindow()
@@ -231,12 +247,16 @@ void MainWindow::testAlign()
         sSeq1 = QString::fromStdString(readfile("D:/Escape2026/JenSeq/GPX_me.txt"));
         sSeq2 = QString::fromStdString(readfile("D:/Escape2026/JenSeq/GPX_other.txt"));
         setTableFeatures(ui->matrix, 9, 18, 3);
+        timedelay = 3;
+        timedelaytrace =20;
     }
     else
     {
         sSeq1 = QString::fromStdString(readfile("D:/Escape2026/JenSeq/ex1.txt"));
         sSeq2 = QString::fromStdString(readfile("D:/Escape2026/JenSeq/ex2.txt"));
         setTableFeatures(ui->matrix, 30, 30, 12);
+        timedelay = 10;
+        timedelaytrace =100;
     }
 
 
@@ -331,7 +351,7 @@ void MainWindow::testAlign()
         }
         else if(base == "C")
         {
-            QColor color(QColor("blue"));
+            QColor color(QColor("green"));
             item->setBackground(color);
         }
     }
@@ -362,7 +382,7 @@ void MainWindow::testAlign()
         }
         else if(base == "C")
         {
-            QColor color(QColor("blue"));
+            QColor color(QColor("green"));
             item->setBackground(color);
         }
 
@@ -536,7 +556,6 @@ void MainWindow::testAlign()
 
     ui->alignedOne->clear();
     std::reverse(theAlignedOne.begin(), theAlignedOne.end());
-
     ui->alignedOne->setText(theAlignedOne);
     ui->compseq->setText(sSeq1);
     ui->compseq_2->setText(sSeq2);
