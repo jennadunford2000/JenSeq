@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1500</width>
-    <height>1073</height>
+    <width>1550</width>
+    <height>1090</height>
    </rect>
   </property>
   <property name="font">
@@ -23,9 +23,9 @@
    <widget class="QStackedWidget" name="windows">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>1481</width>
+      <x>0</x>
+      <y>0</y>
+      <width>1505</width>
       <height>1011</height>
      </rect>
     </property>
@@ -40,6 +40,9 @@
       <family>Calibri</family>
       <pointsize>8</pointsize>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
     </property>
     <property name="currentIndex">
      <number>1</number>
@@ -350,7 +353,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>0</y>
+        <y>28</y>
         <width>1311</width>
         <height>671</height>
        </rect>
@@ -364,7 +367,7 @@
       <property name="font">
        <font>
         <family>Calibri</family>
-        <pointsize>3</pointsize>
+        <pointsize>12</pointsize>
        </font>
       </property>
       <attribute name="horizontalHeaderMinimumSectionSize">
@@ -384,7 +387,7 @@
       <property name="geometry">
        <rect>
         <x>1340</x>
-        <y>30</y>
+        <y>70</y>
         <width>93</width>
         <height>29</height>
        </rect>
@@ -403,73 +406,15 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>690</y>
-        <width>891</width>
+        <y>702</y>
+        <width>1311</width>
         <height>20</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Calibri</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>A</string>
-      </property>
-     </widget>
-     <widget class="QTextEdit" name="sequence">
-      <property name="geometry">
-       <rect>
-        <x>1340</x>
-        <y>470</y>
-        <width>131</width>
-        <height>81</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QTextEdit" name="textEdit">
-      <property name="geometry">
-       <rect>
-        <x>1340</x>
-        <y>380</y>
-        <width>131</width>
-        <height>81</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="compseq">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>675</y>
-        <width>891</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Calibri</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>A</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="compseq_2">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>705</y>
-        <width>891</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Calibri</family>
-        <pointsize>10</pointsize>
+        <pointsize>20</pointsize>
        </font>
       </property>
       <property name="text">
@@ -480,19 +425,9 @@
       <property name="geometry">
        <rect>
         <x>1340</x>
-        <y>70</y>
-        <width>131</width>
-        <height>26</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label">
-      <property name="geometry">
-       <rect>
-        <x>1360</x>
-        <y>120</y>
-        <width>16</width>
-        <height>20</height>
+        <y>30</y>
+        <width>141</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="font">
@@ -500,122 +435,38 @@
         <family>Calibri</family>
         <pointsize>12</pointsize>
        </font>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color:rgb(0, 0, 0);
-background-color:rgb(255, 0, 255);
-</string>
-      </property>
-      <property name="text">
-       <string>A</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_2">
-      <property name="geometry">
-       <rect>
-        <x>1380</x>
-        <y>120</y>
-        <width>16</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Calibri</family>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(0, 0, 0);
-background-color: rgb(85, 170, 0);
-</string>
-      </property>
-      <property name="text">
-       <string>C</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_3">
-      <property name="geometry">
-       <rect>
-        <x>1400</x>
-        <y>120</y>
-        <width>16</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Calibri</family>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(0, 0, 0);
-background-color: rgb(255, 255, 0);
-
-</string>
-      </property>
-      <property name="text">
-       <string>G</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_4">
-      <property name="geometry">
-       <rect>
-        <x>1420</x>
-        <y>120</y>
-        <width>16</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Calibri</family>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(0, 0, 0);
-background-color: rgb(85, 255, 255);
-</string>
-      </property>
-      <property name="text">
-       <string>T</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_5">
-      <property name="geometry">
-       <rect>
-        <x>1350</x>
-        <y>140</y>
-        <width>121</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Calibri</family>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Colour Legend</string>
       </property>
      </widget>
      <widget class="QLabel" name="DNA">
       <property name="geometry">
        <rect>
-        <x>1352</x>
-        <y>220</y>
+        <x>1350</x>
+        <y>570</y>
         <width>121</width>
         <height>121</height>
        </rect>
       </property>
       <property name="text">
        <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="alignedOne_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>4</y>
+        <width>1311</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Impact</family>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Sequence Alignment Matrix</string>
       </property>
      </widget>
     </widget>
@@ -626,7 +477,7 @@ background-color: rgb(85, 255, 255);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1500</width>
+     <width>1550</width>
      <height>21</height>
     </rect>
    </property>

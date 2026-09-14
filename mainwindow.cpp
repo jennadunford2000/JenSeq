@@ -28,13 +28,11 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->selectExample->addItem("GPX");
+    ui->selectExample->addItem("GPX1");
     ui->selectExample->addItem("Small Example");
     ui->selectExample->setCurrentIndex(0);
 
     ui->alignedOne->clear();
-    ui->compseq->clear();
-    ui->compseq_2->clear();
 
     QMovie *movie = new QMovie("D:/Escape2026/JenSeq/dna.gif");
     if (!movie->isValid())
@@ -222,12 +220,16 @@ void MainWindow::testAlign()
 {
 
     ui->alignedOne->setText("");
-    ui->compseq->setText("");
-    ui->compseq_2->setText("");
+
+    QColor jPink = QColor(255, 90, 219);
+    QColor jPurple = QColor(202, 46, 237);
+    QColor jBlue = QColor(138, 226, 229);
+    QColor jYellow = QColor(255, 242, 156);
+    QColor jGreen = QColor(42, 255, 0);
 
     int timedelay = 3;
     int timedelaytrace =20;
-    ui->textEdit->insertPlainText("we out here 0 \n");
+    //ui->textEdit->insertPlainText("we out here 0 \n");
     //we need our two sequences
     //QString seq1[] = {"T","T","G","A","C","G","T"};
     //QString seq2[] = {"T","G","A","C","G"};
@@ -242,13 +244,17 @@ void MainWindow::testAlign()
 
     QString theAlignedOne = "";
 
+    bool example = false;
+
     if(ui->selectExample->currentIndex() == 0)
     {
         sSeq1 = QString::fromStdString(readfile("D:/Escape2026/JenSeq/GPX_me.txt"));
         sSeq2 = QString::fromStdString(readfile("D:/Escape2026/JenSeq/GPX_other.txt"));
         setTableFeatures(ui->matrix, 9, 18, 3);
+
         timedelay = 3;
-        timedelaytrace =20;
+        timedelaytrace =100;
+        example = false;
     }
     else
     {
@@ -257,6 +263,7 @@ void MainWindow::testAlign()
         setTableFeatures(ui->matrix, 30, 30, 12);
         timedelay = 10;
         timedelaytrace =100;
+        example = true;
     }
 
 
@@ -275,14 +282,14 @@ void MainWindow::testAlign()
     strcpy(seq2, (sSeq2.toStdString()).c_str());
 
 
-    ui->textEdit->insertPlainText("we out here 1 \n");
+    //ui->textEdit->insertPlainText("we out here 1 \n");
 
 
-    ui->textEdit->insertPlainText("seq1 size: " + QString::number(sizeof(seq1)) + "\n");
-    ui->textEdit->insertPlainText("seq2 size: " + QString::number(sizeof(seq2)) + "\n");
+    //ui->textEdit->insertPlainText("seq1 size: " + QString::number(sizeof(seq1)) + "\n");
+    //ui->textEdit->insertPlainText("seq2 size: " + QString::number(sizeof(seq2)) + "\n");
 
 
-    ui->textEdit->insertPlainText("we out here 0 \n");
+    //ui->textEdit->insertPlainText("we out here 0 \n");
 
 
 
@@ -310,7 +317,6 @@ void MainWindow::testAlign()
     //once finished -> traceback
     //from bottom right follow "direction arrows" backwards
     //if move left, then gap, if move diagonal, then match - store possible alignment
-    //if multiple possible directions, do it again - store possible alignment
     ui->matrix->clearContents();
     ui->matrix->clear();
 
@@ -336,23 +342,23 @@ void MainWindow::testAlign()
         if(base == "G")
         {
             QColor color(QColor("yellow"));
-            item->setBackground(color);
+            item->setBackground(jPink);
 
         }
         else if(base == "T")
         {
             QColor color(QColor("cyan"));
-            item->setBackground(color);
+            item->setBackground(jPurple);
         }
         else if(base == "A")
         {
             QColor color(QColor("magenta"));
-            item->setBackground(color);
+            item->setBackground(jBlue);
         }
         else if(base == "C")
         {
             QColor color(QColor("green"));
-            item->setBackground(color);
+            item->setBackground(jYellow);
         }
     }
 
@@ -367,23 +373,23 @@ void MainWindow::testAlign()
         if(base == "G")
         {
             QColor color(QColor("yellow"));
-            item->setBackground(color);
+            item->setBackground(jPink);
 
         }
         else if(base == "T")
         {
             QColor color(QColor("cyan"));
-            item->setBackground(color);
+            item->setBackground(jPurple);
         }
         else if(base == "A")
         {
             QColor color(QColor("magenta"));
-            item->setBackground(color);
+            item->setBackground(jBlue);
         }
         else if(base == "C")
         {
             QColor color(QColor("green"));
-            item->setBackground(color);
+            item->setBackground(jYellow);
         }
 
     }
@@ -448,10 +454,10 @@ void MainWindow::testAlign()
             if(sSeq1[c-1] == sSeq2[r-1])
             {
                 diagsum = AlignMatrix(r-1,c-1) + match;
-                ui->textEdit->insertPlainText(QString(seq1[c-1]) + " and " +  QString(seq2[r-1]) + " match \n");
+               // ui->textEdit->insertPlainText(QString(seq1[c-1]) + " and " +  QString(seq2[r-1]) + " match \n");
             }else{
                 diagsum = AlignMatrix(r-1,c-1) + mismatch;
-                ui->textEdit->insertPlainText(QString(seq1[c-1]) + " and " +  QString(seq2[r-1]) + " do not match \n");
+               // ui->textEdit->insertPlainText(QString(seq1[c-1]) + " and " +  QString(seq2[r-1]) + " do not match \n");
 
             }
             leftsum = AlignMatrix(r,c-1) + indel;
@@ -488,7 +494,7 @@ void MainWindow::testAlign()
 
     }
 
-    ui->textEdit->insertPlainText("Beginning traceback \n");
+   // ui->textEdit->insertPlainText("Beginning traceback \n");
 
    // if(DirectionMatrix(sizeof(seq2),sizeof(seq1)) == 3)
   //  {
@@ -503,28 +509,28 @@ void MainWindow::testAlign()
     ui->alignedOne->clear();
     ui->alignedOne->setText(theAlignedOne);
     QColor color(QColor("red"));
-    item->setBackground(color);
+    item->setBackground(jGreen);
     for (int r = sizeof(seq2)-1; r >= 1;){
         for(int c = sizeof(seq1)-1; c >= 1;)
         {
             int directionCheck = DirectionMatrix(r,c);
-            ui->sequence->insertPlainText("we are on " + QString(QChar::fromLatin1((seq1[c-1]))) + "\n");
-            ui->sequence->insertPlainText("coordinates are " + QString::number(r) + "," + QString::number(c) + "\n");
-            ui->sequence->insertPlainText("the direction is: " + QString::number(directionCheck) + "\n");
+         //   ui->sequence->insertPlainText("we are on " + QString(QChar::fromLatin1((seq1[c-1]))) + "\n");
+          //  ui->sequence->insertPlainText("coordinates are " + QString::number(r) + "," + QString::number(c) + "\n");
+          //  ui->sequence->insertPlainText("the direction is: " + QString::number(directionCheck) + "\n");
             switch(directionCheck){
             case up:
                 theAlignedOne.append("-");
                 ui->alignedOne->clear();
                 ui->alignedOne->setText(theAlignedOne);
                 r = r-1;
-                ui->textEdit->insertPlainText("direction was up \n");
+              //  ui->textEdit->insertPlainText("direction was up \n");
                 break;
             case left:
                 theAlignedOne.append("-");
                 ui->alignedOne->clear();
                 ui->alignedOne->setText(theAlignedOne);
                 c = c-1;
-                ui->textEdit->insertPlainText("direction was left \n");
+              //  ui->textEdit->insertPlainText("direction was left \n");
                 break;
             case diag:
                 theAlignedOne.append(seq1[c-1]);
@@ -532,7 +538,7 @@ void MainWindow::testAlign()
                 ui->alignedOne->setText(theAlignedOne);
                 c = c-1;
                 r = r-1;
-                ui->textEdit->insertPlainText("direction was diagonal \n");
+             //   ui->textEdit->insertPlainText("direction was diagonal \n");
                 break;
             default:
                 break;
@@ -548,7 +554,7 @@ void MainWindow::testAlign()
 
             QTableWidgetItem* item = ui->matrix->item(r,c);
             QColor color(QColor("red"));
-            item->setBackground(color);
+            item->setBackground(jGreen);
 
 
         }
@@ -557,8 +563,6 @@ void MainWindow::testAlign()
     ui->alignedOne->clear();
     std::reverse(theAlignedOne.begin(), theAlignedOne.end());
     ui->alignedOne->setText(theAlignedOne);
-    ui->compseq->setText(sSeq1);
-    ui->compseq_2->setText(sSeq2);
 
 }
 
